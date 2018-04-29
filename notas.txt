@@ -1,0 +1,37 @@
+composer create-project laravel/laravel test
+
+https://packagist.org
+composer require laravelcollective/html
+
+php artisan -V   {laravel 5.4.36}
+php artisan serve
+php artisan make:migration add_categories_table --create=categories
+php artisan migrate
+
+composer require doctrine/dbal -> para poder hacer alter table
+
+php artisan make:model Category
+
+php artisan tinker
+\App\User::create($user);
+$users = \App\User::all();
+
+
+$category = new App\Category();
+$category->name="Noticias";
+$category->save();
+
+
+$article->tags()->attach(1);
+
+
+php artisan make:controller TestController --resource
+
+php artisan route:list
+
+php artisan make:auth
+
+php artisan help make:migration
+
+php artisan migrate:refresh --borra y vuelve a correr las migraciones
+
