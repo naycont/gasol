@@ -14,8 +14,12 @@ class ClientesController extends Controller
      */
     public function index()
     {
-		$clientes = cliente::OrderBy('nombre','ASC')->paginate(5);
-        return view('clientes.index')->with('clientes',$clientes);
+      $options = new \stdClass();
+      $options->token = '';
+      $options->select_id = 'nombre';
+
+		  $clientes = cliente::OrderBy('nombre','ASC')->paginate(5);
+      return view('clientes.index')->with(['clientes'=>$clientes,'options'=>$options]);
     }
 
     /**
@@ -93,12 +97,17 @@ class ClientesController extends Controller
     }
 
     public function buscar(Request $request){
+
         $token = $request->token;
         $where = $request->select_id;
 
-        $clientes =  DB::table('clientes')->where($where,'like', '%'.$token.'%')->OrderBy('nombre','ASC')->paginate(10);
+        $clientes =  cliente::where($where,'like', '%'.$token.'%')->OrderBy('nombre','ASC')->paginate(5)->appends(request()->query());
 
-        return view('clientes.index')->with('clientes',$clientes);
+        $options = new \stdClass();
+        $options->token = $token;
+        $options->select_id = $where;
+
+        return view('clientes.index')->with(['clientes'=>$clientes,'options'=>$options]);
 
     }
 

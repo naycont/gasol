@@ -21,7 +21,7 @@ Route::get('clientes/Producto','ClientesController@Producto')->name('clientes/Pr
 
 Route::post('clientes/addProducto','ClientesController@addProducto')->name('addProducto');
 
-Route::post('buscar','ClientesController@buscar')->name('buscar');
+Route::any('buscar','ClientesController@buscar')->name('buscar');
 
 Route::resource('clientes','ClientesController');
 

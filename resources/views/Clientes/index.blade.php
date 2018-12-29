@@ -31,7 +31,7 @@
 	<div class="col s6">
 	  <div class="col s6">
 	    <div class="col s6" style="float:right">
-	       {!! Form::select('select_id',['nombre'=>'nombre','rfc'=>'rfc'],'nombre',['style'=>'display:block']) !!}
+	       {!! Form::select('select_id',['nombre'=>'nombre','rfc'=>'rfc'],$options->select_id,['style'=>'display:block']) !!}
 	    </div>
 
 	    <!-- <label>Buscar por...?</label>
@@ -44,8 +44,7 @@
 	  </div>
 
 	  <div class="col s6">
-	   <input type="text" name="token" placeholder="buscar..."/>
-
+		  {!! Form::text('token',$options->token,['placeholder'=>'buscar...']) !!}
 	 </div>
 
 
@@ -91,7 +90,9 @@
 						@endforeach()
 					</tbody>
 				</table>
-				{{$clientes->links()}}
+				{{ $clientes->appends(request()->except('page'))->links() }}
+				<!--{{ $clientes->appends(request()->query())->links() }}-->
+				<!--{{$clientes->links()}}-->
 			</div><!-- col s12-->
 		</div>
 	</div>
