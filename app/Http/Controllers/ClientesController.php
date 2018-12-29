@@ -75,10 +75,10 @@ class ClientesController extends Controller
     public function update(Request $request, $id)
     {
         $cliente = cliente::find($id);
-		$cliente->fill($request->all());
-		$cliente->factura = isset($request->factura)? 'Si': 'No';
-		$cliente->save();
-		return redirect()->route('clientes.index');
+        $cliente->fill($request->all());
+        $cliente->factura = isset($request->factura)? 'Si': 'No';
+        $cliente->save();
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -89,6 +89,16 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
+
+    }
+
+    public function buscar(Request $request){
+        $token = $request->token;
+        $where = $request->select_id;
+
+        $clientes =  DB::table('clientes')->where($where,'like', '%'.$token.'%')->OrderBy('nombre','ASC')->paginate(10);
+
+        return view('clientes.index')->with('clientes',$clientes);
 
     }
 

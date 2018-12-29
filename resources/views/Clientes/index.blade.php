@@ -4,33 +4,62 @@
 
 	<div class="row" style="padding-top:2%">
 		<div class="col s6">
-				<h5 class="header"><i class="material-icons">group</i>Clientes</h5>	
+				<h5 class="header"><i class="material-icons">group</i>Clientes</h5>
 		</div>
-	
 		<div class="col s6">
-			<a class="waves-effect waves-light btn right" href="{{route('clientes.create')}}">Crear Nuevo</a>
+
+				<a class="waves-effect waves-light btn right" href="{{route('clientes.create')}}">Crear Nuevo</a>
+
+				<a class="waves-effect waves-light btn  right blue" style="margin-right:10px" href="{{route('clientes.index')}}">Actualizar</a>
+
 		</div>
+
 	</div>
-	
+
 	<div class="row">
-	{!! Form::open(['route'=>'clientes.index','method'=>'POST'])!!}
-	
+	{!! Form::open(['route'=>'buscar','method'=>'POST'])!!}
+
 	 <div class="col s6">
-		<label>Factura?</label>	
-		<div class="switch">
-			<label>	No
-			{!! Form::checkbox('factura',null ) !!}
-			<span class="lever"></span>	Si  
-			</label>
-		</div>
+	  <label>Factura?</label>
+	  <div class="switch">
+	    <label>	No
+	    {!! Form::checkbox('factura',null ) !!}
+	    <span class="lever"></span>	Si
+	    </label>
+	  </div>
+	</div>
+	<div class="col s6">
+	  <div class="col s6">
+	    <div class="col s6" style="float:right">
+	       {!! Form::select('select_id',['nombre'=>'nombre','rfc'=>'rfc'],'nombre',['style'=>'display:block']) !!}
+	    </div>
+
+	    <!-- <label>Buscar por...?</label>
+	    <div class="switch">
+	      <label>	RFC
+	      {!! Form::checkbox('NOMBRE',null ) !!}
+	      <span class="lever"></span>	NOMBRE
+	      </label>
+	    </div>-->
+	  </div>
+
+	  <div class="col s6">
+	   <input type="text" name="token" placeholder="buscar..."/>
+
 	 </div>
+
+
+	</div>
+
+
+
 	{!! Form::close() !!}
 	</div>
-	
-	
+
+
 	<div class="card large">
 		<div class = "card-content">
-			
+
 			<div class="col s12">
 				<table class="bordered highlight centered responsive-table">
 					<thead>
@@ -39,7 +68,7 @@
 						<th>Teléfono</th>
 						<th>Factura</th>
 						<th>Acciones</th>
-						
+
 					</thead>
 					<tbody>
 						@foreach($clientes as $cliente)
@@ -54,9 +83,9 @@
 										<i class="material-icons">clear</i>
 									@endif
 								</td>
-								<td> 
-									<a href="{{route('clientes.edit',$cliente->id)}}" class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">edit</i></a>	
-									<a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>	
+								<td>
+									<a href="{{route('clientes.edit',$cliente->id)}}" class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">edit</i></a>
+									<a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
 								</td>
 							</tr>
 						@endforeach()
@@ -70,5 +99,3 @@
 
 
 @endsection()
-
-

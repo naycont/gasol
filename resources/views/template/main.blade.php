@@ -9,23 +9,27 @@
 </head>
 
 <body>
-@include('template.partials.nav')
 
 
 
-    <div class="container">
-        <div class="row" id="app">
-            <example></example>
 
-            @yield('content')
-        </div><!--row -->
+  @include('template.partials.nav')
+
+  <div id="app">
+
+      <div class="container">
+          <div class="row" >
 
 
-    </div><!--container-->
+              @yield('content')
+          </div><!--row -->
+</div>
 
+      </div><!--container-->
+
+<script src="{{ asset('public/js/app.js') }}"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="{{asset('public/plugins/materialize/js/materialize.js')}}"></script>
-<script src="{{ asset('public/js/app.js') }}"></script>
 
 </body>
 </html>
