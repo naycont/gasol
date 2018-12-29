@@ -19,8 +19,6 @@ Route::get('/','ClientesController@index');
 
 Route::get('clientes/Producto','ClientesController@Producto')->name('clientes/Producto');
 
-
-
 Route::post('clientes/addProducto','ClientesController@addProducto')->name('addProducto');
 
 Route::resource('clientes','ClientesController');
@@ -31,3 +29,8 @@ Route::get('precios','ClientesController@precios')->name('precios');
 
 Route::post('getPrecios','ClientesController@getPrecios')->name('getPrecios');
 
+Route::post('addClienteProducto','ClientesController@addClienteProducto')->name('addClienteProducto');
+
+Route::resource('ventas','VentasController');
+
+Route::post('ventas/create','VentasController@create')->name('create');

@@ -2,27 +2,28 @@
 @section('content')
 
 
-		<div class="col s6">
+<div class="row" style="padding-top:2%">
+	<div class="col s6">
 			<h5 class="header"><i class="material-icons">attach_money</i>Precios</h5>
-		</div>
+	</div>
 
-        <div class="col s6">
-            <a class="btn  right" href="{{route('clientes/Producto')}}">Crear Nuevo</a>
-        </div>
+	<div class="col s6">
+		<a class="waves-effect waves-light btn right" href="{{route('clientes/Producto')}}">Crear Nuevo</a>
+	</div>
+</div>
+
+
 
 		<div class="col s12">
 			{!! Form::open(['route'=>'getPrecios','method'=>'POST'])!!}
-			<div class="input-field col s5">
-				{!! Form::select('cliente_id',$clientes,null,['placeholder'=>'Selecciona...']) !!}
+			<div class=" col s4">
 				{!! Form::label('cliente_id','Cliente') !!}
+				{!! Form::select('cliente_id',$clientes,null,['placeholder'=>'Seleccione Cliente...','style'=>'display:block']) !!}
+
 			</div>
 
-			<div class="input-field col s5">
-				{!! Form::select('producto_id',$productos,null,['placeholder'=>'Selecciona...']) !!}
-				{!! Form::label('producto_id','Producto') !!}
-			</div>
 
-			<div class="col s2">
+			<div class="col s3"  style="float:right">
 				{!! Form::submit('Buscar',['class'=>'btn waves-effect waves-light blue right']) !!}
 			</div>
 

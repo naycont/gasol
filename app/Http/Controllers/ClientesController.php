@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\cliente;
-use App\producto;
+use App\Cliente;
+use App\Producto;
 class ClientesController extends Controller
 {
     /**
@@ -74,7 +74,7 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cliente = cliente::find($id);		
+        $cliente = cliente::find($id);
 		$cliente->fill($request->all());
 		$cliente->factura = isset($request->factura)? 'Si': 'No';
 		$cliente->save();
@@ -95,30 +95,36 @@ class ClientesController extends Controller
     //Busqueda de clientes relacionados con productos (manyToMany)
     public function precios(){
         $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}
-        $productos = producto::all()->pluck('nombre','id');
-        return view('clientes.precios')->with(['clientes'=>$clientes,'productos'=>$productos]);
+
+        return view('clientes.precios')->with(['clientes'=>$clientes]);
+    }
+
+    public function getClientesProductos(){
+
     }
 
     public function getPrecios(Request $request){
 
+
         $cliente = cliente::find($request->cliente_id);
-        $producto = cliente::find($request->producto_id);
-        if($producto == null ){//buscamos por el cliente
-            $respuesta  = ['info' => $cliente,
-                           'desglose' => $cliente->productos
-            ];
-        }elseif($cliente == null ){//buscamos por el producto
-            $respuesta = ['info' => $producto,
-                       'desglose' =>$producto->clientes
-            ];
-        }else{
-            $respueta = cliente::whereHas('productos', function($q)
+
+        $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}
+
+        //buscamos por el cliente
+        $respuesta  = ['info' => $cliente,
+                           'desglose' => $cliente->productos->toArray()
+        ];
+        /*else{
+
+            $respuesta = cliente::whereHas('productos', function($q)
             {
-                $q->whereId(producto_id);
+                $q->whereId($producto_id);
             })->get();
-        }
-        //return view('clientes.info_precios')->with(['respuesta'=>$respuesta,'clientes'=>$clientes,'productos'=>$productos ]);
-        //dd($respuesta);
+
+
+        }*/
+      //  dd($respuesta['info']->rfc);die;
+        return view('clientes.info_precios')->with(['respuesta'=>$respuesta,'clientes'=>$clientes]);
 
 
 
@@ -127,7 +133,33 @@ class ClientesController extends Controller
     public function Producto(){
         $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}
         $productos = producto::all()->pluck('nombre','id');
+
         return view('clientes.addProducto')->with(['clientes'=>$clientes,'productos'=>$productos]);
+    }
+
+    public function addClienteProducto(Request $request){
+      $cliente_id = $request->cliente_id;
+      $producto_id = $request->producto_id;
+      $precio = $request->precio;
+
+      $cliente = cliente::find($cliente_id);
+
+      $cliente->productos()->attach($producto_id,['precio'=>$precio]);
+
+      $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}
+
+
+      $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}
+
+      //buscamos por el cliente
+      $respuesta  = ['info' => $cliente,
+                         'desglose' => $cliente->productos->toArray()
+      ];
+
+      return view('clientes.info_precios')->with(['respuesta'=>$respuesta,'clientes'=>$clientes ]);
+
+
+
     }
 
     public function addProducto(Request $request){
