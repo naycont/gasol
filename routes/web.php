@@ -23,7 +23,9 @@ Route::post('clientes/addProducto','ClientesController@addProducto')->name('addP
 
 Route::any('buscar','ClientesController@buscar')->name('buscar');
 
-Route::resource('clientes','ClientesController');
+Route::post('buscarSelect','ClientesController@buscarSelect');
+
+Route::apiResource('clientes','ClientesController');
 
 Route::resource('productos','ProductosController');
 

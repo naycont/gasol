@@ -111,6 +111,12 @@ class ClientesController extends Controller
 
     }
 
+    public function buscarSelect(Request $request){
+      $token = $request->token;
+      $clientes =  cliente::where('nombre','like', '%'.$token.'%')->OrderBy('nombre','ASC')->get();
+      return response()->json($clientes);
+    }
+
     //Busqueda de clientes relacionados con productos (manyToMany)
     public function precios(){
         $clientes = cliente::all()->pluck('nombre','id');//pluck regresa  un array dado una llave P/e: [1=>'Cliente 1', 2=>'Cliente 2'}

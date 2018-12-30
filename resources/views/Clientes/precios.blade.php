@@ -17,9 +17,9 @@
 		<div class="col s12">
 			{!! Form::open(['route'=>'getPrecios','method'=>'POST'])!!}
 			<div class=" col s4">
-				{!! Form::label('cliente_id','Cliente') !!}
-				{!! Form::select('cliente_id',$clientes,null,['placeholder'=>'Seleccione Cliente...','style'=>'display:block']) !!}
-
+				<!--{!! Form::label('cliente_id','Cliente') !!}
+				{!! Form::select('cliente_id',$clientes,null,['placeholder'=>'Seleccione Cliente...','style'=>'display:block']) !!}-->
+				<v-select-precios></v-select-precios>
 			</div>
 
 
